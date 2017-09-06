@@ -3,12 +3,12 @@ class Products{
 	
 	private $products;
 
-	function __construct($jsonFile = ""){
-		
-		$this->loadProducts($jsonFile);
+	function __construct(string $jsonFile = ""){
+		if ($jsonFile != "")
+			$this->loadProducts($jsonFile);
 	}
 	
-	private function loadProducts($jsonFile){
+	private function loadProducts(string $jsonFile){
 		
 		$json = file_get_contents($jsonFile);
 		
@@ -17,7 +17,6 @@ class Products{
 		foreach ($infoObj as $prodInfo){
 			$this->products[] = new Customer($prodInfo);
 		}
-
 	}
 	
 	function getAll (){
@@ -38,7 +37,7 @@ class Product{
 	$category,
 	$price;
 	
-	function __construct($prodInfo){
+	function __construct(Object $prodInfo){
 		
 		//Product Init
 		$this->id = $prodInfo->id;
