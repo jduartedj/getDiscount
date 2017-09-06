@@ -2,13 +2,14 @@
 
 include_once 'Customers.class.php';
 include_once 'Products.class.php';
-// TODOs
 
-// LOADs
-// Aux methods
-// Aux Objects
-// Create Discounts JSON
-// Create set*Discount functions - RULE OF THUMB - Read $Order + Write $Result
+// *********** TODOs **************
+
+//TODO:Service consuption interface: get + NuSoap via index.php
+//TODO:LOAD Discounts
+//TODO:Classes: Order + Result
+//TODO:Create Discounts JSON: 2 levels
+//TODO:Create actions CLASS + methods - RULE OF THUMB - Read $Order + Write $Result
 
 class GetDiscount{
 
