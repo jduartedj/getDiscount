@@ -1,6 +1,7 @@
 <?php
 
 include_once 'Customers.class.php';
+include_once 'Products.class.php';
 // TODOs
 
 // LOADs
@@ -29,6 +30,7 @@ class GetDiscount{
 		
 		private function loadProduct(){
 			//load JSON file
+			$this->customers = new Customers("data/products.json");
 		}
 		
 		private function loadCustomers(){
@@ -46,10 +48,13 @@ class GetDiscount{
 				$line->category = $this->products->get($line->product-id);
 			}
 		}
-		private function categoryExists($catID) {
+		
+		/* create in Order Obj + Product obj
+		 * private function categoryExists($catID) {
 			//TODO
 			
-		}
+		}*/
+		
 		private function calcDiscounts($result){
 			
 			$categories = new Categories();
@@ -105,9 +110,6 @@ class GetDiscount{
 				}
 			}
 			
-			//unecessary overzeleous unsetting of vars
-			unset($categories);
-			unset($lines);
 		}
 		
 		function getDiscount($order){
@@ -131,9 +133,9 @@ class GetDiscount{
 			
 			// release all vars
 			//unecessary overzeleous unsetting of vars
-			unset($this->products);
-			unset($this->customers);
-			unset($this->discounts);
+			/*unset($this->products,
+					$this->customers,
+					$this->discounts);*/
 		
 		}
 }

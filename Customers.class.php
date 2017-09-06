@@ -33,7 +33,7 @@ class Customers{
 
 class Customer{
 	
-	private $id,
+	public $id,
 	$name,
 	$since,
 	$revenue;
