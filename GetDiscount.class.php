@@ -1,4 +1,6 @@
 <?php
+
+include_once 'Customers.class.php';
 // TODOs
 
 // LOADs
@@ -31,6 +33,7 @@ class GetDiscount{
 		
 		private function loadCustomers(){
 			//load JSON file
+			$this->customers = new Customers("data/customers.json");
 		}
 		
 		private function loadDiscounts(){
