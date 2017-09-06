@@ -75,7 +75,7 @@ class GetDiscount{
 								}
 							}
 							else{
-								$this->addToCategory($this->order->lines->getByCategories($discount->scopeId), $categories);
+								$this->addToCategory($this->order->lines->getByCategory($discount->scopeId), $categories);
 							}
 							
 							//Loop through categories
@@ -109,13 +109,12 @@ class GetDiscount{
 					break;
 				}
 			}
-			
 		}
 		
-		function getDiscount($order){
+		function getDiscount($orderJSON){
 			
 			//load Order
-			$this->order = $order;
+			$this->order = new Order($orderJSON);
 			
 			//create result object (duplicate)
 			$this->result = $order;
