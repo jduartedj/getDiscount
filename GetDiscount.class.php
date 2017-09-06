@@ -20,15 +20,13 @@ class GetDiscount{
 		function __construct(){
 			
 			//load JSON data
-			loadProduct();
-			loadCustomers();
-			loadDiscounts();
+			$this->loadProduct();
+			$this->loadCustomers();
+			$this->loadDiscounts();
 		}
 		
 		private function loadProduct(){
 			//load JSON file
-			
-			
 		}
 		
 		private function loadCustomers(){
@@ -41,8 +39,8 @@ class GetDiscount{
 		
 		private function loadCategories(){
 			//load order with Categories
-			foreach($line in $this->order->lines){
-				$line.category = $this->products->get($line->product-id);
+			foreach($this->order->lines as $line){
+				$line->category = $this->products->get($line->product-id);
 			}
 		}
 		private function categoryExists($catID) {
@@ -55,26 +53,26 @@ class GetDiscount{
 			$lines = [];
 			
 			//iterate through all discount lines
-			foreach($discount in $this->discounts){
+			foreach($this->discounts as $discount){
 				switch ($discount->scope) {
 					case "Global":
-						setGlobalDiscount();
+						$this->setGlobalDiscount();
 					break;
 					case "Category":
 						if ($discount->scopeId == "*" || categoryInOrder($discount->scopeId)){
 							//create category object(s) (total, quantity, lines)
 							if ($discount->scopeId == "*"){
-								foreach($line in $this->order->lines){
-									addToCategory($line, $categories);
+								foreach($this->order->lines as $line){
+									$this->addToCategory($line, $categories);
 								}
 							}
 							else{
-								addToCategory($this->order->lines->getByCategories($discount->scopeId), $categories);
+								$this->addToCategory($this->order->lines->getByCategories($discount->scopeId), $categories);
 							}
 							
 							//Loop through categories
-							foreach($category in $categories){
-								setCategoryDiscount($category);
+							foreach($categories as $category){
+								$this->setCategoryDiscount($category);
 							}
 						}
 						
@@ -83,7 +81,7 @@ class GetDiscount{
 						if ($discount->scopeId == "*" || productInOrder($discount->scopeId)){
 							
 							if ($discount->scopeId == "*"){
-								foreach($line in $this->order->lines){
+								foreach($this->order->lines as $line){
 									if ($discount->scopeId == "*" || $line->product-id == $discount->scopeId){
 										$lines[] = $line;
 									}
@@ -91,9 +89,10 @@ class GetDiscount{
 							}
 
 							//Loop through lines
-							foreach($line in $lines){
-								setLineDiscount($category);
+							foreach($lines as $line){
+								$this->setLineDiscount($category);
 							}
+							
 						}
 					break;
 				
@@ -102,6 +101,10 @@ class GetDiscount{
 					break;
 				}
 			}
+			
+			//unecessary overzeleous unsetting of vars
+			unset($categories);
+			unset($lines);
 		}
 		
 		function getDiscount($order){
@@ -113,10 +116,10 @@ class GetDiscount{
 			$this->result = $order;
 			
 			//load product categories into original order
-			loadCategories();
+			$this->loadCategories();
 			
 			//calculate Discounts
-			calcDiscounts();
+			$this->calcDiscounts();
 			
 			return $this->result;
 		}
@@ -124,9 +127,10 @@ class GetDiscount{
 		function __destruct(){
 			
 			// release all vars
-			unset($products);
-			unset($customers);
-			unset($discounts);
+			//unecessary overzeleous unsetting of vars
+			unset($this->products);
+			unset($this->customers);
+			unset($this->discounts);
 		
 		}
 }
