@@ -7,12 +7,13 @@ $gd = new GetDiscount();
 If (!isset($_GET['orderJSON'])){
 
 	//call NUSOAP library
+	require_once('nusoap/class.soap_base.php');
 	require_once('nusoap/class.soap_server.php');
 	require_once('nusoap/class.soap_val.php');
 	require_once('nusoap/class.soap_parser.php');
 	require_once('nusoap/class.soap_fault.php');
 	
-	$URL       = "localhost";
+	$URL       = "http://localhost/";
 	$namespace = $URL . '?wsdl';
 	//using soap_server to create server object
 	$server    = new soap_server;
