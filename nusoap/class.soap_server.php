@@ -160,7 +160,7 @@ class nusoap_server extends nusoap_base {
 	 * @var boolean
 	 * @access public
 	 */
-	var $debug_flag = false;
+	var $debug_flag = true;
 
 
 	/**

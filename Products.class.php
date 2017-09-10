@@ -3,12 +3,12 @@ class Products{
 	
 	private $products;
 
-	function __construct(string $jsonFile = ""){
-		if ($jsonFile != "")
+	function __construct($jsonFile = null){
+		if ($jsonFile != null)
 			$this->loadProducts($jsonFile);
 	}
 	
-	private function loadProducts(string $jsonFile){
+	private function loadProducts($jsonFile){
 		
 		$json = file_get_contents($jsonFile);
 		

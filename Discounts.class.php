@@ -5,12 +5,12 @@ class Discounts{
 	
 	private $discounts;
 
-	function __construct(string $jsonFile = ""){
-		if ($jsonFile != "")
+	function __construct($jsonFile = null){
+		if ($jsonFile != null)
 			$this->loadDiscounts($jsonFile);
 	}
 	
-	private function loadDiscounts(string $jsonFile){
+	private function loadDiscounts($jsonFile){
 		
 		$json = file_get_contents($jsonFile);
 		

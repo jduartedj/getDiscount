@@ -3,12 +3,12 @@ class Customers{
 	
 	private $customers;
 
-	function __construct(string $jsonFile = ""){
+	function __construct($jsonFile = ""){
 		if ($jsonFile != "")
 			$this->loadCustomers($jsonFile);
 	}
 	
-	private function loadCustomers(string $jsonFile){
+	private function loadCustomers($jsonFile){
 		
 		$json = file_get_contents($jsonFile);
 		

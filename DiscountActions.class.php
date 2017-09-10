@@ -7,7 +7,7 @@ class DiscountActions{
 		//init whatever necessary
 	}
 	
-	function execute(string $id, Order $order, $scopeObj){
+	function execute($id, Order $order, $scopeObj){
 		
 		switch ($id){
 			

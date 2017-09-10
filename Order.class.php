@@ -11,17 +11,17 @@ class Order{
 			$products,
 			$categories;
 
-	function __construct(string $jsonFile = "", Products $products){
+	function __construct($jsonFile = null, Products $products){
 		
 		$this->products = $products;
 		
-		if ($jsonFile != ""){
+		if ($jsonFile != null){
 			$this->loadOrder($jsonFile);
 		}
 		
 	}
 	
-	private function loadOrder(string $jsonStr){
+	private function loadOrder($jsonStr){
 		
 		$infoObj = json_decode($jsonStr); 
 		
@@ -88,7 +88,7 @@ class Order{
 		
 	}
 	
-	function categoryExists(string $id){
+	function categoryExists($id){
 		
 		foreach ($this->categories as $category){
 			
@@ -135,7 +135,7 @@ class Category{
 			$quantity,
 			$items;
 	
-	function __construct(string $id){
+	function __construct($id){
 		$this->id = $id;
 		$this->quantity = 0.00;
 		$this->items = [];

@@ -6,11 +6,6 @@ include_once 'Discounts.class.php';
 include_once 'Order.class.php';
 
 
-// *********** TODOs **************
-
-//TODO:Service consuption interface: get + NuSoap via index.php
-
-
 class GetDiscount{
 
 		private $products,
