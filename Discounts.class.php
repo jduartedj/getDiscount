@@ -63,7 +63,7 @@ class Discount{
 			$scopeFilter,
 			$rules;
 	
-	function __construct(Object $discInfo){
+	function __construct($discInfo){
 		
 		//Product Init
 		$this->id = $discInfo->id;

@@ -31,10 +31,10 @@ class GetDiscount{
 			$this->products= new Products("data/products.json");
 		}
 		
-		private function loadCustomers(){
+		/*private function loadCustomers(){
 			//load JSON file
 			$this->customers = new Customers("data/customers.json");
-		}
+		}*/
 		
 		private function loadDiscounts(){
 			//load JSON file
