@@ -32,6 +32,7 @@ class Order{
 		$this->customerId = $infoObj->{'customer-id'};
 		$this->discount = 0.00;
 		$this->total = $infoObj->total;
+		$this->categories = [];
 		
 		foreach ($infoObj->items as $itemInfo){
 			$new = new Item($itemInfo, $this->products);
@@ -60,7 +61,7 @@ class Order{
 		
 		foreach ($this->items as $item){
 			$result["items"][] = array (
-					"product-id" => $item->productID,
+					"product-id" => $item->productId,
 					"quantity" => $item->quantity,
 					"unit-price" => $item->unitPrice,
 					"discount" => $item->discount,
@@ -84,7 +85,7 @@ class Order{
 		
 	}
 	
-	private function categoryExists(string $id){
+	function categoryExists(string $id){
 		
 		foreach ($this->categories as $category){
 			if ($category->id == $id)

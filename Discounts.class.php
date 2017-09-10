@@ -91,7 +91,7 @@ class Discount{
 	
 	function applyDiscount(Order $order){
 		
-		$scopeObj = null;
+		$scopeObj = [];
 		
 		switch ($this->scope){
 			case "Order":
@@ -101,14 +101,14 @@ class Discount{
 				
 			case "Category":
 			//case "Type":
-				if ($discount->scopeFilter== "*" || $order->categoryExists($discount->scopeFilter)){
+				if ($this->scopeFilter== "*" || $order->categoryExists($this->scopeFilter)){
 					
-					if ($discount->scopeId == "*"){
+					if ($this->scopeFilter== "*"){
 						$scopeObj = &$order->categories;
 					}
 					else{
 						foreach ($order->categories as &$category)
-							if ($category->id == $discount->scopeFilter) $scopeObj[] = $category;
+							if ($category->id == $this->scopeFilter) $scopeObj[] = $category;
 					}
 					
 				}
@@ -118,13 +118,13 @@ class Discount{
 			//case "Product":
 			case "Item":
 			//case "Line":
-				if ($discount->scopeFilter== "*" || $order->itemExists($discount->scopeFilter)){
+				if ($this->scopeFilter== "*" || $order->itemExists($this->scopeFilter)){
 					
-					if ($discount->scopeId == "*"){
-						$scopeObj = $order->items->getAll();
+					if ($this->scopeFilter== "*"){
+						$scopeObj = &$order->items;
 					}
 					else{
-						$scopeObj[] =  $order->items->getItemById($discount->scopeFilter);
+						$scopeObj[] =  $order->items->getItemById($this->scopeFilter);
 					}
 					
 				}

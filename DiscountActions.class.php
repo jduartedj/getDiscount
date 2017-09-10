@@ -16,10 +16,15 @@ class DiscountActions{
 				
 				break;
 			case"2":
+				
+				//1 for every 5
+				$qtyFree = floor($scopeObj->quantity / 5);
+				
+				//add offer line
 				$new =  new Item($scopeObj, $order->products);
 				
 				$new->unitPrice = 0.00;
-				$new->quantity = 1;
+				$new->quantity = $qtyFree;
 				$new->discount = 0.00;
 				
 				$order->items[] = $new;
@@ -29,6 +34,7 @@ class DiscountActions{
 				$min = INF;
 				$minItem = null;
 				
+				// get cheapest item
 				foreach($scopeObj->items as &$item){
 					if ($item->total < $min){
 						$min = $item->total;
