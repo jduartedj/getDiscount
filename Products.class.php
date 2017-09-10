@@ -27,7 +27,7 @@ class Products{
 	function getProductById($id){
 		foreach($this->products as $product){
 			if ($product->id == $id) 
-				return $popduct;
+				return $product;
 		}
 		
 		return null;

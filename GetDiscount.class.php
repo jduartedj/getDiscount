@@ -45,7 +45,7 @@ class GetDiscount{
 		function getDiscount($orderJSON){
 			
 			//load Order
-			$this->order = new Order($orderJSON);
+			$this->order = new Order($orderJSON, $this->products);
 			
 			//apply discounts
 			$this->discounts->apply($this->order);

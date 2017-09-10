@@ -13,23 +13,23 @@ class Order{
 
 	function __construct(string $jsonFile = "", Products $products){
 		
+		$this->products = $products;
+		
 		if ($jsonFile != ""){
 			$this->loadOrder($jsonFile);
 		}
 		
-		$this->products = $products;
+		
 			
 		
 	}
 	
-	private function loadOrder(string $jsonFile){
+	private function loadOrder(string $jsonStr){
 		
-		$json = file_get_contents($jsonFile);
-		
-		$infoObj = json_decode($json); 
+		$infoObj = json_decode($jsonStr); 
 		
 		$this->id = $infoObj->id;
-		$this->customerId = $infoObj->customerId;
+		$this->customerId = $infoObj->{'customer-id'};
 		$this->discount = 0.00;
 		$this->total = $infoObj->total;
 		
@@ -84,6 +84,16 @@ class Order{
 		
 	}
 	
+	private function categoryExists(string $id){
+		
+		foreach ($this->categories as $category){
+			if ($category->id == $id)
+				return true;
+		}
+		
+		return false;
+	}
+	
 }
 
 class Item{
@@ -104,9 +114,9 @@ class Item{
 	function __construct($itemInfo, Products $products){
 		
 		//Customer Init
-		$this->productId= $itemInfo->productId;
+		$this->productId= $itemInfo->{'product-id'};
 		$this->quantity= $itemInfo->quantity;
-		$this->unitPrice= $itemInfo->unitPrice;
+		$this->unitPrice= $itemInfo->{'unit-price'};
 		$this->discount = 0.00;
 		$this->total= $itemInfo->total;
 		
