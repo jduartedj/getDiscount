@@ -17,6 +17,7 @@ class Products{
 		foreach ($infoObj as $prodInfo){
 			$this->products[] = new Product($prodInfo);
 		}
+		
 	}
 	
 	function getAll (){
@@ -30,7 +31,7 @@ class Products{
 				return $product;
 		}
 		
-		return null;
+		return new Product();
 	}
 
 }
@@ -42,13 +43,17 @@ class Product{
 	$category,
 	$price;
 	
-	function __construct(stdClass $prodInfo){
+	function __construct(stdClass $prodInfo = null){
 		
-		//Product Init
-		$this->id = $prodInfo->id;
-		$this->description= $prodInfo->description;
-		$this->category= $prodInfo->category;
-		$this->price= $prodInfo->price;
+		if ($prodInfo != "") {
+		
+			//Product Init
+			$this->id = $prodInfo->id;
+			$this->description= $prodInfo->description;
+			$this->category= $prodInfo->category;
+			$this->price= $prodInfo->price;
+			
+		}
 		
 	}
 }

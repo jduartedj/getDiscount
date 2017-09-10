@@ -19,7 +19,7 @@ class Discounts{
 		foreach ($infoObj as $discInfo){
 			$this->discounts[] = new Discount($discInfo);
 		}
-
+		
 	}
 	
 	function getAll (){
@@ -30,9 +30,10 @@ class Discounts{
 	function getDiscountsByScope($scope){
 		$discounts = [];
 		
-		foreach($this->discounts as &$discount){
+		foreach($this->discounts as $discount){
 			if ($discount->scope == $scope) $discounts[] = $discount;
 		}
+		
 		
 		return $discounts;
 		
@@ -82,9 +83,9 @@ class Discount{
 		$result = true;
 		
 		foreach ($this->rules as $rule){
-			var_dump($this);
+			
 			$result = $result && $rule->validate($scopeObject);
-			var_dump($result);
+	
 		}
 		
 		return $result;
@@ -98,7 +99,7 @@ class Discount{
 		switch ($this->scope){
 			case "Order":
 			//case "Total":
-				$scopeObj[] = &$order;
+				$scopeObj[] = $order;
 				break;
 				
 			case "Category":
@@ -106,10 +107,10 @@ class Discount{
 				if ($this->scopeFilter== "*" || $order->categoryExists($this->scopeFilter)){
 					
 					if ($this->scopeFilter== "*"){
-						$scopeObj = &$order->categories;
+						$scopeObj = $order->categories;
 					}
 					else{
-						foreach ($order->categories as &$category)
+						foreach ($order->categories as $category)
 							if ($category->id == $this->scopeFilter) $scopeObj[] = $category;
 					}
 					
@@ -123,7 +124,7 @@ class Discount{
 				if ($this->scopeFilter== "*" || $order->itemExists($this->scopeFilter)){
 					
 					if ($this->scopeFilter== "*"){
-						$scopeObj = &$order->items;
+						$scopeObj = $order->items;
 					}
 					else{
 						$scopeObj[] =  $order->items->getItemById($this->scopeFilter);
@@ -156,11 +157,12 @@ class Rule{
 			$value,
 			$container;
 		
-	function _construct(Object $rule){
+	function __construct(stdClass $rule){
 		$this->field = $rule->field;
 		$this->operator= $rule->operator;
 		$this->value= $rule->value;
-		$this->container= $discount;
+		//$this->container= $discount;
+	
 	}
 	
 	function validate($scopeObject){
@@ -171,23 +173,23 @@ class Rule{
 			
 			case "=":
 			case "==":
-				$result = $scopeObject->$field == $this->value;
+				$result = $scopeObject->{$this->field} == $this->value;
 				break;
 			case ">=":
-				$result = $scopeObject->$field >= $this->value;
+				$result = $scopeObject->{$this->field} >= $this->value;
 				break;
 			case "<=":
-				$result = $scopeObject->$field <= $this->value;
+				$result = $scopeObject->{$this->field} <= $this->value;
 				break;
 			case ">":
-				$result = $scopeObject->$field > $this->value;
+				$result = $scopeObject->{$this->field} > $this->value;
 				break;
 			case "<":
-				$result = $scopeObject->$field < $this->value;
+				$result = $scopeObject->{$this->field} < $this->value;
 				break;
 			case "!=":
 			case "<>":
-				$result = $scopeObject->$field != $this->value;
+				$result = $scopeObject->{$this->field} != $this->value;
 				break;
 			default:
 				$result = false;

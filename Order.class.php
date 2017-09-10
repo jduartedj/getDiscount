@@ -19,9 +19,6 @@ class Order{
 			$this->loadOrder($jsonFile);
 		}
 		
-		
-			
-		
 	}
 	
 	private function loadOrder(string $jsonStr){
@@ -41,12 +38,17 @@ class Order{
 				$this->categories[] = new Category($new->category);
 			}
 			
-			foreach ($this->categories as $category)
-				if ($category->id == $new->category) $category->items[] = &$new;
+			foreach ($this->categories as $category){
+				if ($category->id == $new->category){
+					$category->items[] = $new;
+					$category->quantity += $new->quantity;
+				}
+			}
 				
-			$this->items[] = &$new;
+			$this->items[] = $new;
+			
 		}
-
+		
 	}
 	
 	function getResult(){
@@ -77,19 +79,23 @@ class Order{
 		
 		$total = 0.00;
 		
-		foreach($this->items as &$item){			
-			$total += $item->total = $item->quantity * $item->unitPrice - $item->discount; 
+		foreach($this->items as $item){			
+			$total += $item->total = $item->quantity * $item->unitPrice - $item->discount;
+			$item->total = round($item->total, 2);
 		}
 		
-		$this->total = $total - $this->discount;
+		$this->total = round($total - $this->discount, 2);
 		
 	}
 	
 	function categoryExists(string $id){
 		
 		foreach ($this->categories as $category){
-			if ($category->id == $id)
+			
+			if ($category->id == $id){
 				return true;
+				
+			}
 		}
 		
 		return false;
@@ -106,23 +112,19 @@ class Item{
 			$total,
 			$category;
 	
-	/*"product-id": "B102",
-      "quantity": "10",
-      "unit-price": "4.99",
-      "total": "49.90"
-      */
 
 	function __construct($itemInfo, Products $products){
 		
 		//Customer Init
-		$this->productId= $itemInfo->{'product-id'};
-		$this->quantity= $itemInfo->quantity;
-		$this->unitPrice= $itemInfo->{'unit-price'};
+			
+		$this->productId = $itemInfo->{'product-id'};
+		$this->quantity = $itemInfo->quantity;
+		$this->unitPrice = $itemInfo->{'unit-price'};
 		$this->discount = 0.00;
 		$this->total= $itemInfo->total;
 		
 		$this->category = $products->getProductById($this->productId)->category;
-		
+	
 		
 	}
 }
@@ -130,12 +132,14 @@ class Item{
 class Category{
 	
 	public	$id,
+			$quantity,
 			$items;
 	
-	function __constuct(string $id){
-		
+	function __construct(string $id){
 		$this->id = $id;
-		
+		$this->quantity = 0.00;
+		$this->items = [];
+
 	}
 		
 }

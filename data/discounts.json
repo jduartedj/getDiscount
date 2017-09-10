@@ -5,7 +5,7 @@
     "scope-filter": "*",
     "rules": [
     	{
-    		"field": "Total",
+    		"field": "total",
     		"operator": ">",
     		"value": "1000"
     	}
@@ -17,13 +17,13 @@
     "scope-filter": "*",
     "rules": [
     	{
-    		"field": "cat_id",
+    		"field": "category",
     		"operator": "=",
     		"value": "2"
     	},
     	{
-    		"field": "Quantity",
-    		"operator": ">",
+    		"field": "quantity",
+    		"operator": ">=",
     		"value": "5"
     	}
     ]
@@ -34,9 +34,9 @@
     "scope-filter": "1",
     "rules": [
     	{
-    		"field": "Quantity",
-    		"operator": ">=",
-    		"value": "2"
+    		"field": "quantity",
+    		"operator": ">",
+    		"value": "1"
     	}
     ]
   }

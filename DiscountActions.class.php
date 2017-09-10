@@ -12,7 +12,7 @@ class DiscountActions{
 		switch ($id){
 			
 			case"1":
-				$order->discount = 0.1 * $this->total;
+				$order->discount = round(0.1 * $order->total, 2);
 				
 				break;
 			case"2":
@@ -21,7 +21,7 @@ class DiscountActions{
 				$qtyFree = floor($scopeObj->quantity / 5);
 				
 				//add offer line
-				$new =  new Item($scopeObj, $order->products);
+				$new = clone $scopeObj;
 				
 				$new->unitPrice = 0.00;
 				$new->quantity = $qtyFree;
@@ -35,14 +35,14 @@ class DiscountActions{
 				$minItem = null;
 				
 				// get cheapest item
-				foreach($scopeObj->items as &$item){
+				foreach($scopeObj->items as $item){
 					if ($item->total < $min){
 						$min = $item->total;
 						$minItem = $item;
 					}
 				}
 				
-				$minItem->discount = 0.2 * $minItem->total;
+				$minItem->discount = round(0.2 * $minItem->total, 2);
 				
 				break;
 			default:
