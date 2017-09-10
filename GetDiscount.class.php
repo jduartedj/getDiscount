@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Customers.class.php';
+//include_once 'Customers.class.php';
 include_once 'Products.class.php';
 include_once 'Discounts.class.php';
 include_once 'Order.class.php';
@@ -22,7 +22,7 @@ class GetDiscount{
 			
 			//load JSON data
 			$this->loadProduct();
-			$this->loadCustomers();
+			//$this->loadCustomers();
 			$this->loadDiscounts();
 		}
 		

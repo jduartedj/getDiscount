@@ -15,7 +15,7 @@ class Products{
 		$infoObj = json_decode($json); 
 		
 		foreach ($infoObj as $prodInfo){
-			$this->products[] = new Customer($prodInfo);
+			$this->products[] = new Product($prodInfo);
 		}
 	}
 	
