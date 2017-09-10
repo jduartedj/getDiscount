@@ -68,7 +68,7 @@ class Discount{
 		//Product Init
 		$this->id = $discInfo->id;
 		$this->scope= $discInfo->scope;
-		$this->scopeFilter= $discInfo->scopeFilter;
+		$this->scopeFilter= $discInfo->{'scope-filter'};
 		
 		foreach($discInfo->rules as $rule){
 			$this->rules[] = new Rule($rule);

@@ -42,7 +42,7 @@ class Product{
 	$category,
 	$price;
 	
-	function __construct(Object $prodInfo){
+	function __construct(stdClass $prodInfo){
 		
 		//Product Init
 		$this->id = $prodInfo->id;
