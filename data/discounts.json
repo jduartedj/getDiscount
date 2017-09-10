@@ -1,11 +1,11 @@
 [
   {
     "id": "1",
-    "scope": "Order",
+    "scope": "Customer",
     "scope-filter": "*",
     "rules": [
     	{
-    		"field": "total",
+    		"field": "revenue",
     		"operator": ">",
     		"value": "1000"
     	}

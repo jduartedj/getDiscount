@@ -9,11 +9,13 @@ class Order{
 			$discount,
 			$total,
 			$products,
+			$customers,
 			$categories;
 
-	function __construct($jsonFile = null, Products $products){
+	function __construct($jsonFile = null, Products $products, Customers $customers){
 		
 		$this->products = $products;
+		$this->customers= $customers;
 		
 		if ($jsonFile != null){
 			$this->loadOrder($jsonFile);
@@ -96,6 +98,16 @@ class Order{
 				return true;
 				
 			}
+		}
+		
+		return false;
+	}
+	
+	function getCustomer(){
+		
+		foreach ($this->customers->getAll() as $customer){
+			if ($customer->id == $this->customerId)
+				return $customer;
 		}
 		
 		return false;

@@ -53,6 +53,9 @@ class Discounts{
 		
 		foreach ($this->getDiscountsByScope("Order") as $discount)
 			$discount->applyDiscount($order);
+		
+		foreach ($this->getDiscountsByScope("Customer") as $discount)
+			$discount->applyDiscount($order);
 	}
 
 }
@@ -97,6 +100,9 @@ class Discount{
 		$scopeObj = [];
 		
 		switch ($this->scope){
+			case "Customer":
+				$scopeObj[] = $order->getCustomer();
+				break;
 			case "Order":
 			//case "Total":
 				$scopeObj[] = $order;
@@ -183,6 +189,7 @@ class Rule{
 				break;
 			case ">":
 				$result = $scopeObject->{$this->field} > $this->value;
+				
 				break;
 			case "<":
 				$result = $scopeObject->{$this->field} < $this->value;

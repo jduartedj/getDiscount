@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 
 // Main file handles the requstes named index.php for ease of use
 include_once 'GetDiscount.class.php';

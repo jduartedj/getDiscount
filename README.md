@@ -8,7 +8,7 @@ Customers, products and orders are defined as given in the test statement, they 
 
 Regarding the definition of __discounts__, 2 files were used for its definitions: one JSON file `data/discounts.json`  the defines the discount id, scope and its rules (conditions that have to be met so that the discount may be applied) and another PHP file `DiscountActions.class.php` to define the actions that are executed to apply each discount.
 
-The discount may be included in 1 of 3 scopes: Order, Category or Item.
+The discount may be included in 1 of 4 scopes: Customer, Order, Category or Item.
 The scopes define how we validate the rules and apply the discount.
 
 ## USAGE
