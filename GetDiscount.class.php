@@ -51,10 +51,11 @@ class GetDiscount{
 			//load Order
 			$this->order = new Order($orderJSON);
 			
+			//apply discounts
 			$this->discounts->apply($this->order);
 			
-			//create result object
-			$this->result = new Result ($this->order, $this->discounts);
+			//get result
+			$this->result = $this->order->getResult();
 			
 			return $this->result;
 		}

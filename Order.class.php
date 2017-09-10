@@ -6,6 +6,7 @@ class Order{
 	public $id,
 			$customerId,
 			$items,
+			$discount,
 			$total,
 			$products;
 
@@ -28,12 +29,37 @@ class Order{
 		
 		$this->id = $infoObj->id;
 		$this->customerId = $infoObj->customerId;
+		$this->discount = 0.00;
 		$this->total = $infoObj->total;
 		
 		foreach ($infoObj->items as $itemInfo){
 			$this->items[] = new Item($itemInfo, $this->products);
 		}
 
+	}
+	
+	function getResult(){
+
+		$result = array(
+			"id" => $this->id,
+			"customer-id" => $this->customerId,
+			"items" => array(),
+			"discount" => $this->discount,
+			"total" => $this->total
+		);
+		
+		foreach ($this->items as $item){
+			$result["items"][] = array (
+					"product-id" => $item->productID,
+					"quantity" => $item->quantity,
+					"unit-price" => $item->unitPrice,
+					"discount" => $item->discount,
+					"total" => $item->total
+			);
+		}
+		
+		return json_encode($result);
+		
 	}
 	
 }
@@ -43,6 +69,7 @@ class Item{
 	public	$productId,
 			$quantity,
 			$unitPrice,
+			$discount,
 			$total,
 			$category;
 	
@@ -58,9 +85,11 @@ class Item{
 		$this->productId= $itemInfo->productId;
 		$this->quantity= $itemInfo->quantity;
 		$this->unitPrice= $itemInfo->unitPrice;
+		$this->discount = 0.00;
 		$this->total= $itemInfo->total;
 		
 		$this->category = $products->getProductById($this->productId)->category;
+		
 		
 	}
 }
