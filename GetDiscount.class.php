@@ -8,9 +8,7 @@ include_once 'Order.class.php';
 
 // *********** TODOs **************
 
-//TODO: actions Class
 //TODO:Service consuption interface: get + NuSoap via index.php
-
 
 
 class GetDiscount{
