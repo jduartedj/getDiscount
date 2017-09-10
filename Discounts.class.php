@@ -82,7 +82,9 @@ class Discount{
 		$result = true;
 		
 		foreach ($this->rules as $rule){
+			var_dump($this);
 			$result = $result && $rule->validate($scopeObject);
+			var_dump($result);
 		}
 		
 		return $result;
