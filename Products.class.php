@@ -24,9 +24,14 @@ class Products{
 		
 	}
 	
-	/*function getProductById($id){
-		//TODO
-	}*/
+	function getProductById($id){
+		foreach($this->products as $product){
+			if ($product->id == $id) 
+				return $popduct;
+		}
+		
+		return null;
+	}
 
 }
 

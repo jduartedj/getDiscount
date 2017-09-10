@@ -31,9 +31,6 @@ class Discounts{
 		foreach ($this->discounts as $discount)
 			$discount->applyDiscount($order);
 	}
-	/*function getProductById($id){
-		//TODO
-	}*/
 
 }
 

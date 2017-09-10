@@ -1,0 +1,31 @@
+[
+  {
+    "id": "1",
+    "scope": "Order",
+    "scope-filter": "*",
+    "rules": [
+    	{
+    		"field": "Total",
+    		"operator": ">=",
+    		"value": "1000"
+    	}
+    ]
+  },
+    {
+    "id": "2",
+    "scope": "Item",
+    "scope-filter": "*",
+    "rules": [
+    	{
+    		"field": "cat_id",
+    		"operator": "=",
+    		"value": "2"
+    	},
+    	{
+    		"field": "Quantity",
+    		"operator": ">",
+    		"value": "5"
+    	}
+    ]
+  }
+]

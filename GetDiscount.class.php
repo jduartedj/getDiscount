@@ -2,14 +2,17 @@
 
 include_once 'Customers.class.php';
 include_once 'Products.class.php';
+include_once 'Discounts.class.php';
+include_once 'Order.class.php';
+include_once 'Result.class.php';
+
 
 // *********** TODOs **************
 
 //TODO:Service consuption interface: get + NuSoap via index.php
-//TODO:LOAD Discounts
 //TODO:Classes: Order + Result
-//TODO:Create Discounts JSON: 2 levels
-//TODO:Create actions CLASS + methods - RULE OF THUMB - Read $Order + Write $Result
+//TODO: actions Class
+
 
 class GetDiscount{
 
@@ -39,6 +42,7 @@ class GetDiscount{
 		
 		private function loadDiscounts(){
 			//load JSON file
+			$this->discounts = new Discounts("data/discounts.json");
 		}
 		
 		
@@ -47,7 +51,9 @@ class GetDiscount{
 			//load Order
 			$this->order = new Order($orderJSON);
 			
-			//create result object to preserve order
+			$this->discounts->apply($this->order);
+			
+			//create result object
 			$this->result = new Result ($this->order, $this->discounts);
 			
 			return $this->result;
