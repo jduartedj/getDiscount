@@ -27,8 +27,30 @@ class Discounts{
 		
 	}
 	
+	function getDiscountsByScope($scope){
+		$discounts = [];
+		
+		foreach($this->discounts as &$discount){
+			if ($discount->scope == $scope) $discounts[] = $discount;
+		}
+		
+		return $discounts;
+		
+	}
+	
 	function apply(Order $order){
-		foreach ($this->discounts as $discount)
+		
+		// discounts should be aplied from bottom to top (hierarchically)
+		// to avoid giving more discount than it should 
+		
+		
+		foreach ($this->getDiscountsByScope("Item") as $discount)
+			$discount->applyDiscount($order);
+
+		foreach ($this->getDiscountsByScope("Category") as $discount)
+			$discount->applyDiscount($order);
+		
+		foreach ($this->getDiscountsByScope("Order") as $discount)
 			$discount->applyDiscount($order);
 	}
 
@@ -73,12 +95,12 @@ class Discount{
 		
 		switch ($this->scope){
 			case "Order":
-			case "Total":
+			//case "Total":
 				$scopeObj[] = &$order;
 				break;
 				
 			case "Category":
-			case "Type":
+			//case "Type":
 				if ($discount->scopeFilter== "*" || $order->categoryExists($discount->scopeFilter)){
 					
 					if ($discount->scopeId == "*"){
@@ -92,10 +114,10 @@ class Discount{
 				}
 				break;
 			
-			case "Article":
-			case "Product":
+			//case "Article":
+			//case "Product":
 			case "Item":
-			case "Line":
+			//case "Line":
 				if ($discount->scopeFilter== "*" || $order->itemExists($discount->scopeFilter)){
 					
 					if ($discount->scopeId == "*"){

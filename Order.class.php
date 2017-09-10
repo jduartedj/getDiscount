@@ -72,6 +72,18 @@ class Order{
 		
 	}
 	
+	function calculate() {
+		
+		$total = 0.00;
+		
+		foreach($this->items as &$item){			
+			$total += $item->total = $item->quantity * $item->unitPrice - $item->discount; 
+		}
+		
+		$this->total = $total - $this->discount;
+		
+	}
+	
 }
 
 class Item{
