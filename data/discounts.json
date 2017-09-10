@@ -6,7 +6,7 @@
     "rules": [
     	{
     		"field": "Total",
-    		"operator": ">=",
+    		"operator": ">",
     		"value": "1000"
     	}
     ]
@@ -25,6 +25,18 @@
     		"field": "Quantity",
     		"operator": ">",
     		"value": "5"
+    	}
+    ]
+  },
+    {
+    "id": "",
+    "scope": "Category",
+    "scope-filter": "1",
+    "rules": [
+    	{
+    		"field": "Quantity",
+    		"operator": ">=",
+    		"value": "2"
     	}
     ]
   }

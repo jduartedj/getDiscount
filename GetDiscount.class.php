@@ -4,14 +4,13 @@ include_once 'Customers.class.php';
 include_once 'Products.class.php';
 include_once 'Discounts.class.php';
 include_once 'Order.class.php';
-include_once 'Result.class.php';
 
 
 // *********** TODOs **************
 
-//TODO:Service consuption interface: get + NuSoap via index.php
-//TODO:Classes: Order + Result
 //TODO: actions Class
+//TODO:Service consuption interface: get + NuSoap via index.php
+
 
 
 class GetDiscount{
@@ -19,8 +18,7 @@ class GetDiscount{
 		private $products,
 				$customers,
 				$discounts,
-				$order,
-				$result;
+				$order;
 		
 		function __construct(){
 			
@@ -54,19 +52,19 @@ class GetDiscount{
 			//apply discounts
 			$this->discounts->apply($this->order);
 			
-			//get result
-			$this->result = $this->order->getResult();
-			
-			return $this->result;
+			//return result
+			return $this->order->getResult();
+
 		}
 		
 		function __destruct(){
 			
 			// release all vars
-			//unecessary overzeleous unsetting of vars
-			/*unset($this->products,
+			/*unecessary overzeleous unsetting of vars
+				unset($this->products,
 					$this->customers,
-					$this->discounts);*/
+					$this->discounts,
+					etc.);*/
 		
 		}
 }

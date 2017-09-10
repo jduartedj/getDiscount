@@ -67,14 +67,14 @@ class Discount{
 		
 	}
 	
-	function applyDiscount(Order $order, Result $result){
+	function applyDiscount(Order $order){
 		
 		$scopeObj = null;
 		
 		switch ($this->scope){
 			case "Order":
 			case "Total":
-				$scopeObj[] = $order;
+				$scopeObj[] = &$order;
 				break;
 				
 			case "Category":
@@ -82,10 +82,11 @@ class Discount{
 				if ($discount->scopeFilter== "*" || $order->categoryExists($discount->scopeFilter)){
 					
 					if ($discount->scopeId == "*"){
-						$scopeObj = $order->categories->getAll();
+						$scopeObj = &$order->categories;
 					}
 					else{
-						$scopeObj[] =  $order->categories->getCategoryById($discount->scopeFilter);
+						foreach ($order->categories as &$category)
+							if ($category->id == $discount->scopeFilter) $scopeObj[] = $category;
 					}
 					
 				}
@@ -118,7 +119,7 @@ class Discount{
 				//We keep actions separated to keep discount configuration separe from development
 				$action = new DiscountActions();
 				
-				$action->execute($this->id, $order, $result);
+				$action->execute($this->id, $order, $object);
 			}
 		}
 		

@@ -8,9 +8,10 @@ class Order{
 			$items,
 			$discount,
 			$total,
-			$products;
+			$products,
+			$categories;
 
-	function __construct(string $jsonFile = "", $products){
+	function __construct(string $jsonFile = "", Products $products){
 		
 		if ($jsonFile != ""){
 			$this->loadOrder($jsonFile);
@@ -33,7 +34,16 @@ class Order{
 		$this->total = $infoObj->total;
 		
 		foreach ($infoObj->items as $itemInfo){
-			$this->items[] = new Item($itemInfo, $this->products);
+			$new = new Item($itemInfo, $this->products);
+			
+			if (!$this->categoryExists($new->category)) {
+				$this->categories[] = new Category($new->category);
+			}
+			
+			foreach ($this->categories as $category)
+				if ($category->id == $new->category) $category->items[] = &$new;
+				
+			$this->items[] = &$new;
 		}
 
 	}
@@ -79,7 +89,7 @@ class Item{
       "total": "49.90"
       */
 
-	function __construct($itemInfo, $products){
+	function __construct($itemInfo, Products $products){
 		
 		//Customer Init
 		$this->productId= $itemInfo->productId;
@@ -92,4 +102,17 @@ class Item{
 		
 		
 	}
+}
+
+class Category{
+	
+	public	$id,
+			$items;
+	
+	function __constuct(string $id){
+		
+		$this->id = $id;
+		
+	}
+		
 }
