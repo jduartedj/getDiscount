@@ -7,7 +7,7 @@ $gd = new GetDiscount();
 If (!isset($_GET['orderJSON'])){
 
 	//call NUSOAP library
-	require_once('nusoap/class.soap_base.php');
+	require_once('nusoap/class.nusoap_base.php');
 	require_once('nusoap/class.soap_server.php');
 	require_once('nusoap/class.soap_val.php');
 	require_once('nusoap/class.soap_parser.php');
